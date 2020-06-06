@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class RegistrationScreen extends StatelessWidget {
-  static const routeName = '/registration';
+class EditInputsScreen extends StatelessWidget {
+  static const routeName = '/edit-inputs';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      appBar: AppBar(),
     );
   }
 }
