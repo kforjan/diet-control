@@ -15,30 +15,30 @@ class _SplashScreenState extends State<SplashScreen> {
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen') ?? false);
-
     if (_seen) {
       Navigator.of(context).pushReplacementNamed(OverviewScreen.routeName);
     } else {
-      await prefs.setBool('seen', true);
       Navigator.of(context).pushReplacementNamed(RegistrationScreen.routeName);
     }
-
   }
 
   @override
-    void initState() {
-        super.initState();
-        new Timer(new Duration(milliseconds: 200), () {
-        checkFirstSeen();
-        });
-    }
-
+  void initState() {
+    super.initState();
+    Timer(new Duration(milliseconds: 200), () {
+      checkFirstSeen();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     return Scaffold(
       body: Center(
-        child: Image.asset('./assets/images/logo.png'),
+        child: Image.asset(
+          './assets/images/logo.png',
+          height: mediaQuery.size.height * 0.5,
+        ),
       ),
     );
   }

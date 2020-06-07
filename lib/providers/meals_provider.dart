@@ -1,4 +1,3 @@
-import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/meal.dart';
@@ -41,5 +40,10 @@ class MealsProvider extends ChangeNotifier {
       return weight;
     }
     return 0;
+  }
+
+  void deleteData(){
+    _meals = [];
+    notifyListeners();
   }
 }

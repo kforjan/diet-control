@@ -1,17 +1,20 @@
 import 'package:flutter/foundation.dart';
 
 class Meal {
-  final String _name;
   final double _proteinWeight;
   final double _fatWeight;
   final double _carbWeight;
 
+  Meal({
+    @required proteinWeight,
+    @required carbWeight,
+    @required fatWeight,
+  })  : _proteinWeight = proteinWeight,
+        _carbWeight = carbWeight,
+        _fatWeight = fatWeight;
+
   double get calories {
     return _proteinWeight * 4 + _fatWeight * 9 + _carbWeight * 4;
-  }
-
-  String get name{
-    return this._name;
   }
 
   double get proteinWeight {
@@ -25,14 +28,4 @@ class Meal {
   double get carbWeight {
     return this._carbWeight;
   }
-
-  Meal({
-    @required name,
-    @required proteinWeight,
-    @required carbWeight,
-    @required fatWeight,
-  })  : _name = name,
-        _proteinWeight = proteinWeight,
-        _carbWeight = carbWeight,
-        _fatWeight = fatWeight;
 }

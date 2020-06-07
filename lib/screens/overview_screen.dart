@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/meals-provider.dart';
+import '../providers/meals_provider.dart';
 import '../widgets/appbar_main.dart';
 import '../widgets/progress_bars.dart';
 import '../widgets/piechart.dart';
-import '../widgets/meal_selection.dart';
+import '../widgets/new_meal_form.dart';
 
 class OverviewScreen extends StatelessWidget {
   static const routeName = '/overview-screen';
@@ -31,7 +31,8 @@ class OverviewScreen extends StatelessWidget {
                 onPressed: () {
                   showModalBottomSheet(
                     context: context,
-                    builder: (context) => MealSelection(),
+                    builder: (context) => NewMealForm(),
+                    isScrollControlled: true,
                   );
                 },
                 child: Text(

@@ -2,26 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../helpers/custom_scroll_behavior.dart';
-import '../providers/meals-provider.dart';
+import '../providers/meals_provider.dart';
 import '../models/meal.dart';
 
-class NewMealScreen extends StatefulWidget {
-  static const routeName = '/new-meal';
-
-  @override
-  _NewMealScreenState createState() => _NewMealScreenState();
-}
-
-class _NewMealScreenState extends State<NewMealScreen> {
+class NewMealScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  var _nameInputController = TextEditingController();
-  var _proteinInputController = TextEditingController();
-  var _carbInputController = TextEditingController();
-  var _fatInputController = TextEditingController();
+  final _nameInputController = TextEditingController();
+  final _proteinInputController = TextEditingController();
+  final _carbInputController = TextEditingController();
+  final _fatInputController = TextEditingController();
 
-  var _proteinFocusnode = FocusNode();
-  var _carbFocusnode = FocusNode();
-  var _fatFocusnode = FocusNode();
+  final _proteinFocusnode = FocusNode();
+  final _carbFocusnode = FocusNode();
+  final _fatFocusnode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +105,6 @@ class _NewMealScreenState extends State<NewMealScreen> {
                         if (_formKey.currentState.validate()) {
                           Provider.of<MealsProvider>(context, listen: false)
                               .addMeal(Meal(
-                            name: _nameInputController.text,
                             proteinWeight:
                                 double.tryParse(_proteinInputController.text),
                             carbWeight:

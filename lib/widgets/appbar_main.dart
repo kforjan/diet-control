@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../screens/edit_inputs_screen.dart';
+import '../screens/registration_screen.dart';
+import '../providers/meals_provider.dart';
 
 class AppbarMain extends StatelessWidget implements PreferredSizeWidget {
+  Future logOff() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('seen', false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -14,14 +22,16 @@ class AppbarMain extends StatelessWidget implements PreferredSizeWidget {
           ),
           itemBuilder: (context) => [
             PopupMenuItem(
-              child: Text('Edit'),
+              child: Text('Delete user'),
               value: 0,
             ),
           ],
           onSelected: (value) {
             if (value == 0) {
-              Navigator.pushNamed(
-                  context, EditInputsScreen.routeName);
+              Provider.of<MealsProvider>(context, listen: false).deleteData();
+              logOff();
+              Navigator.pushReplacementNamed(
+                  context, RegistrationScreen.routeName);
             }
           },
         ),
