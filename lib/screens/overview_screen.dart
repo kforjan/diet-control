@@ -17,30 +17,42 @@ class OverviewScreen extends StatelessWidget {
       appBar: AppbarMain(),
       body: Consumer<MealsProvider>(
         builder: (context, meals, child) => Container(
-          child: Column(
-            children: <Widget>[
-              ProgressBars(),
-              PieChart(
-                protein: meals.getNutrientWeight(Nutrient.protein),
-                carb: meals.getNutrientWeight(Nutrient.carb),
-                fat: meals.getNutrientWeight(Nutrient.fat),
-              ),
-              SizedBox(height: mediaQuery.size.height * 0.08),
-              RaisedButton(
-                color: Theme.of(context).primaryColor,
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) => NewMealForm(),
-                    isScrollControlled: true,
-                  );
-                },
-                child: Text(
-                  'Add a meal',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: FutureBuilder(
+              future: Provider.of<MealsProvider>(context, listen: false)
+                  .fetchAndSetData(),
+              builder: (context, snapshot) => snapshot.connectionState !=
+                      ConnectionState.done
+                  ? Padding(
+                      padding:
+                          EdgeInsets.only(top: mediaQuery.size.height * 0.45),
+                      child: Center(child: CircularProgressIndicator()))
+                  : Column(
+                      children: <Widget>[
+                        ProgressBars(),
+                        PieChart(
+                          protein: meals.getNutrientWeight(Nutrient.protein),
+                          carb: meals.getNutrientWeight(Nutrient.carb),
+                          fat: meals.getNutrientWeight(Nutrient.fat),
+                        ),
+                        SizedBox(height: mediaQuery.size.height * 0.08),
+                        RaisedButton(
+                          color: Theme.of(context).primaryColor,
+                          onPressed: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) => NewMealForm(),
+                              isScrollControlled: true,
+                            );
+                          },
+                          child: Text(
+                            'Add a meal',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
           ),
         ),
       ),

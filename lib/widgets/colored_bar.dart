@@ -16,11 +16,11 @@ class ColoredBar extends StatelessWidget {
       child: Row(
         children: <Widget>[
           AnimatedContainer(
-            width: (currentWeight != null && goal != null)
-                ? (goalPercentage > 1
-                    ? mediaQuery.size.width * 0.4
-                    : mediaQuery.size.width * 0.4 * (goalPercentage))
-                : 5,
+            constraints: BoxConstraints(
+              minWidth: 5,
+              maxWidth: mediaQuery.size.width * 0.4,
+            ),
+            width: mediaQuery.size.width * 0.4 * (goalPercentage) + 5,
             height: 5,
             color: color,
             duration: Duration(milliseconds: 1000),

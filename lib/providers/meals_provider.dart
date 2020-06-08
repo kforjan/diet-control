@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/meal.dart';
 
@@ -11,8 +12,12 @@ enum Nutrient {
 class MealsProvider extends ChangeNotifier {
   List<Meal> _meals = [];
 
-  void addMeal(Meal meal) {
+  Future addMeal(Meal meal) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     _meals.add(meal);
+    await prefs.setDouble('protein', getNutrientWeight(Nutrient.protein));
+    await prefs.setDouble('carb', getNutrientWeight(Nutrient.carb));
+    await prefs.setDouble('fat', getNutrientWeight(Nutrient.fat));
     notifyListeners();
   }
 
@@ -42,8 +47,41 @@ class MealsProvider extends ChangeNotifier {
     return 0;
   }
 
-  void deleteData(){
+  Future fetchAndSetData() async {
+    if (_meals.isEmpty) {
+      _meals.add(Meal(
+        proteinWeight: await getProteinData(),
+        carbWeight: await getCarbData(),
+        fatWeight: await getFatData(),
+      ));
+      notifyListeners();
+    }
+  }
+
+  Future<double> getProteinData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    double _protein = (prefs.getDouble('protein') ?? 0);
+    return _protein;
+  }
+
+  Future<double> getCarbData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    double _carb = (prefs.getDouble('carb') ?? 0);
+    return _carb;
+  }
+
+  Future<double> getFatData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    double _fat = (prefs.getDouble('fat') ?? 0);
+    return _fat;
+  }
+
+  Future deleteData() async {
     _meals = [];
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('protein', 0);
+    await prefs.setDouble('carb', 0);
+    await prefs.setDouble('fat', 0);
     notifyListeners();
   }
 }
