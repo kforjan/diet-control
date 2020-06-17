@@ -23,7 +23,7 @@ class ColoredBar extends StatelessWidget {
             width: mediaQuery.size.width * 0.4 * (goalPercentage) + 5,
             height: 5,
             color: color,
-            duration: Duration(milliseconds: 1000),
+            duration: Duration(milliseconds: 400),
           ),
           SizedBox(
             width: 25,

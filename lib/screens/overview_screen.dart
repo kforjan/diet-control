@@ -5,7 +5,7 @@ import '../providers/meals_provider.dart';
 import '../widgets/appbar_main.dart';
 import '../widgets/progress_bars.dart';
 import '../widgets/piechart.dart';
-import '../widgets/new_meal_form.dart';
+import '../widgets/meal_selection.dart';
 
 class OverviewScreen extends StatelessWidget {
   static const routeName = '/overview-screen';
@@ -31,9 +31,9 @@ class OverviewScreen extends StatelessWidget {
                       children: <Widget>[
                         ProgressBars(),
                         PieChart(
-                          protein: meals.getNutrientWeight(Nutrient.protein),
-                          carb: meals.getNutrientWeight(Nutrient.carb),
-                          fat: meals.getNutrientWeight(Nutrient.fat),
+                          protein: meals.getCurrentNutrientWeight(Nutrient.protein),
+                          carb: meals.getCurrentNutrientWeight(Nutrient.carb),
+                          fat: meals.getCurrentNutrientWeight(Nutrient.fat),
                         ),
                         SizedBox(height: mediaQuery.size.height * 0.08),
                         RaisedButton(
@@ -41,7 +41,7 @@ class OverviewScreen extends StatelessWidget {
                           onPressed: () {
                             showModalBottomSheet(
                               context: context,
-                              builder: (context) => NewMealForm(),
+                              builder: (context) => MealSelection(),
                               isScrollControlled: true,
                             );
                           },

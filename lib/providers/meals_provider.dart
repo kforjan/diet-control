@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/meal.dart';
+import '../helpers/db_helper.dart';
 
 enum Nutrient {
   protein,
@@ -15,13 +16,21 @@ class MealsProvider extends ChangeNotifier {
   Future addMeal(Meal meal) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _meals.add(meal);
-    await prefs.setDouble('protein', getNutrientWeight(Nutrient.protein));
-    await prefs.setDouble('carb', getNutrientWeight(Nutrient.carb));
-    await prefs.setDouble('fat', getNutrientWeight(Nutrient.fat));
+    await prefs.setDouble(
+        'protein', getCurrentNutrientWeight(Nutrient.protein));
+    await prefs.setDouble('carb', getCurrentNutrientWeight(Nutrient.carb));
+    await prefs.setDouble('fat', getCurrentNutrientWeight(Nutrient.fat));
     notifyListeners();
+    DBHelper.insert('user_meals', {
+      'id': DateTime.now(), //pseudo id...
+      'name': meal.name,
+      'protein': meal.proteinWeight,
+      'carb': meal.carbWeight,
+      'fat': meal.fatWeight,
+    });
   }
 
-  double getNutrientWeight(Nutrient nutrient) {
+  double getCurrentNutrientWeight(Nutrient nutrient) {
     double weight = 0;
     if (_meals.isEmpty) {
       return 0;

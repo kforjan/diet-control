@@ -4,13 +4,14 @@ import 'package:provider/provider.dart';
 import './theme/style.dart';
 import './providers/meals_provider.dart';
 import './screens/overview_screen.dart';
+import './screens/new_meal_screen.dart';
 import './screens/edit_inputs_screen.dart';
 import './screens/registration_screen.dart';
 import './screens/splash_screen.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(GoodDietApp());
 
-class MyApp extends StatelessWidget {
+class GoodDietApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => SplashScreen(),
           OverviewScreen.routeName: (context) => OverviewScreen(),
+          NewMealScreen.routeName: (context) => NewMealScreen(),
           EditInputsScreen.routeName: (context) => EditInputsScreen(),
           RegistrationScreen.routeName: (context) => RegistrationScreen(),
         },

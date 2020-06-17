@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import './colored_bar.dart';
 import '../providers/meals_provider.dart';
+import '../providers/user_data_provider.dart';
 
 class ProgressBars extends StatefulWidget {
   @override
@@ -11,30 +11,30 @@ class ProgressBars extends StatefulWidget {
 }
 
 class _ProgressBarsState extends State<ProgressBars> {
-  double _userWeight = 0;
-  Future getUserWeight() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _userWeight = double.parse(prefs.getString('weight'));
-    setState(() {});
-  }
+  double _proteinGoal = 0;
+  double _carbGoal = 0;
+  double _fatGoal = 0;
 
   @override
   void initState() {
     super.initState();
-    getUserWeight();
+    UserDataProvider.getProteinGoal().then((value) => _proteinGoal = value);
+    UserDataProvider.getCarbGoal().then((value) => _carbGoal = value);
+    UserDataProvider.getFatGoal().then((value) {
+      _fatGoal = value;
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final _proteinWeight =
-        Provider.of<MealsProvider>(context).getNutrientWeight(Nutrient.protein);
-    final _carbWeight =
-        Provider.of<MealsProvider>(context).getNutrientWeight(Nutrient.carb);
-    final _fatWeight =
-        Provider.of<MealsProvider>(context).getNutrientWeight(Nutrient.fat);
-    final _proteinGoal = (_userWeight * (35) * 0.25) / 4;
-    final _carbGoal = (_userWeight * (35) * 0.5) / 4;
-    final _fatGoal = (_userWeight * (35) * 0.25) / 8;
+    final _proteinWeight = Provider.of<MealsProvider>(context)
+        .getCurrentNutrientWeight(Nutrient.protein);
+    final _carbWeight = Provider.of<MealsProvider>(context)
+        .getCurrentNutrientWeight(Nutrient.carb);
+    final _fatWeight = Provider.of<MealsProvider>(context)
+        .getCurrentNutrientWeight(Nutrient.fat);
+
     final mediaQuery = MediaQuery.of(context);
     return Container(
       child: Center(
