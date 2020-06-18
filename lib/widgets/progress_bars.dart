@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './colored_bar.dart';
-import '../providers/meals_provider.dart';
+import '../providers/current_intake_provider.dart';
 import '../providers/user_data_provider.dart';
 
 class ProgressBars extends StatefulWidget {
@@ -28,12 +28,9 @@ class _ProgressBarsState extends State<ProgressBars> {
 
   @override
   Widget build(BuildContext context) {
-    final _proteinWeight = Provider.of<MealsProvider>(context)
-        .getCurrentNutrientWeight(Nutrient.protein);
-    final _carbWeight = Provider.of<MealsProvider>(context)
-        .getCurrentNutrientWeight(Nutrient.carb);
-    final _fatWeight = Provider.of<MealsProvider>(context)
-        .getCurrentNutrientWeight(Nutrient.fat);
+    final _proteinWeight = Provider.of<CurrentIntakeProvider>(context).protein;
+    final _carbWeight = Provider.of<CurrentIntakeProvider>(context).carb;
+    final _fatWeight = Provider.of<CurrentIntakeProvider>(context).fat;
 
     final mediaQuery = MediaQuery.of(context);
     return Container(

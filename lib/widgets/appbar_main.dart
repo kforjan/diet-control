@@ -3,11 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/registration_screen.dart';
+import '../providers/current_intake_provider.dart';
 import '../providers/meals_provider.dart';
 
 class AppbarMain extends StatelessWidget implements PreferredSizeWidget {
-  Future logOff() async {
+  Future logOff(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    await Provider.of<MealsProvider>(context,listen: false).deleteAllMeals();
     await prefs.setBool('seen', false);
   }
 
@@ -28,8 +30,8 @@ class AppbarMain extends StatelessWidget implements PreferredSizeWidget {
           ],
           onSelected: (value) {
             if (value == 0) {
-              Provider.of<MealsProvider>(context, listen: false).deleteData();
-              logOff();
+              Provider.of<CurrentIntakeProvider>(context, listen: false).deleteIntakes();
+              logOff(context);
               Navigator.pushReplacementNamed(
                   context, RegistrationScreen.routeName);
             }

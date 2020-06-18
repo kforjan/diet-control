@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/meals_provider.dart';
+import '../providers/current_intake_provider.dart';
 import '../widgets/appbar_main.dart';
 import '../widgets/progress_bars.dart';
 import '../widgets/piechart.dart';
@@ -15,12 +15,12 @@ class OverviewScreen extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
       appBar: AppbarMain(),
-      body: Consumer<MealsProvider>(
-        builder: (context, meals, child) => Container(
+      body: Consumer<CurrentIntakeProvider>(
+        builder: (context, intake, child) => Container(
           child: SingleChildScrollView(
             child: FutureBuilder(
-              future: Provider.of<MealsProvider>(context, listen: false)
-                  .fetchAndSetData(),
+              future: Provider.of<CurrentIntakeProvider>(context, listen: false)
+                  .fetchAndSetIntakes(),
               builder: (context, snapshot) => snapshot.connectionState !=
                       ConnectionState.done
                   ? Padding(
@@ -31,9 +31,9 @@ class OverviewScreen extends StatelessWidget {
                       children: <Widget>[
                         ProgressBars(),
                         PieChart(
-                          protein: meals.getCurrentNutrientWeight(Nutrient.protein),
-                          carb: meals.getCurrentNutrientWeight(Nutrient.carb),
-                          fat: meals.getCurrentNutrientWeight(Nutrient.fat),
+                          protein: intake.protein,
+                          carb: intake.carb,
+                          fat: intake.fat,
                         ),
                         SizedBox(height: mediaQuery.size.height * 0.08),
                         RaisedButton(

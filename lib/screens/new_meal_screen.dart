@@ -1,8 +1,9 @@
+import 'package:diet_app/providers/meals_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../helpers/custom_scroll_behavior.dart';
-import '../providers/meals_provider.dart';
+import '../providers/current_intake_provider.dart';
 import '../models/meal.dart';
 
 class NewMealScreen extends StatefulWidget {
@@ -44,7 +45,7 @@ class _NewMealScreenState extends State<NewMealScreen> {
                   children: <Widget>[
                     TextFormField(
                       decoration: InputDecoration(hintText: 'Name'),
-                      maxLength: 35,
+                      maxLength: 25,
                       controller: _nameInputController,
                       validator: (value) {
                         if (value == '') {
@@ -110,8 +111,7 @@ class _NewMealScreenState extends State<NewMealScreen> {
                     RaisedButton(
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          Provider.of<MealsProvider>(context, listen: false)
-                              .addMeal(Meal(
+                          Meal newMeal = Meal(
                             name: _nameInputController.text,
                             proteinWeight:
                                 double.tryParse(_proteinInputController.text),
@@ -119,7 +119,11 @@ class _NewMealScreenState extends State<NewMealScreen> {
                                 double.tryParse(_carbInputController.text),
                             fatWeight:
                                 double.tryParse(_fatInputController.text),
-                          ));
+                          );
+                          Provider.of<CurrentIntakeProvider>(context,
+                                  listen: false)
+                              .addIntakeMeal(newMeal);
+                          Provider.of<MealsProvider>(context, listen: false).addMeal(newMeal);
                           Navigator.of(context).pop();
                         }
                       },
