@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../helpers/custom_scroll_behavior.dart';
-import '../providers/current_intake_provider.dart';
 import '../models/meal.dart';
 
 class NewMealScreen extends StatefulWidget {
@@ -121,9 +120,6 @@ class _NewMealScreenState extends State<NewMealScreen> {
                             fatWeight:
                                 double.tryParse(_fatInputController.text),
                           );
-                          Provider.of<CurrentIntakeProvider>(context,
-                                  listen: false)
-                              .addIntakeMeal(newMeal);
                           Provider.of<MealsProvider>(context, listen: false).addMeal(newMeal);
                           Navigator.of(context).pop();
                         }

@@ -1,20 +1,30 @@
-import 'package:diet_app/helpers/db_helper.dart';
-import 'package:diet_app/providers/meals_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/meal.dart';
 import '../widgets/meal_card.dart';
+import '../widgets/appearing_submit_button.dart';
 import '../screens/new_meal_screen.dart';
+import '../providers/meals_provider.dart';
 import '../providers/meal_selection_provider.dart';
+import '../providers/current_intake_provider.dart';
 
 class MealSelection extends StatelessWidget {
   final _scrollController = ScrollController();
+
+  void addSelectedMealToIntakes(BuildContext context) {
+    String _selectedId = Provider.of<MealSelectionProvider>(context, listen: false).selectedId;
+    Meal _meal = Provider.of<MealsProvider>(context, listen: false).meals.firstWhere((element) => element.id == _selectedId);
+    Provider.of<CurrentIntakeProvider>(context, listen: false)
+        .addIntakeMeal(_meal);
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return ChangeNotifierProvider(
       create: (context) => MealSelectionProvider(),
-      child: Container(
+      builder: (context, child) => Container(
         height: mediaQuery.size.height * 0.53,
         child: Column(
           children: <Widget>[
@@ -64,14 +74,7 @@ class MealSelection extends StatelessWidget {
                   elevation: 0,
                   onPressed: null,
                 ),
-                FloatingActionButton(
-                  child: Icon(Icons.check),
-                  onPressed: () {
-                    DBHelper.getData(DBHelper.table)
-                        .then((value) => print(value));
-                    Navigator.of(context).pop();
-                  },
-                ),
+                AppearingSubmitButton(this.addSelectedMealToIntakes),
                 FloatingActionButton(
                   child: Icon(Icons.add),
                   onPressed: () {

@@ -29,7 +29,7 @@ class _ProgressBarsState extends State<ProgressBars> {
   @override
   Widget build(BuildContext context) {
     final _proteinWeight = Provider.of<CurrentIntakeProvider>(context).protein;
-    final _carbWeight = Provider.of<CurrentIntakeProvider>(context).carb;
+    final _carbWeight = Provider.of<CurrentIntakeProvider>(context, listen: false).carb;
     final _fatWeight = Provider.of<CurrentIntakeProvider>(context).fat;
 
     final mediaQuery = MediaQuery.of(context);

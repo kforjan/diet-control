@@ -43,6 +43,7 @@ class OverviewScreen extends StatelessWidget {
                               context: context,
                               builder: (context) => MealSelection(),
                               isScrollControlled: true,
+                              enableDrag: false,
                             );
                           },
                           child: Text(
