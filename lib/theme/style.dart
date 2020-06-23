@@ -4,6 +4,7 @@ import 'dart:math';
 ThemeData buildDefaultTheme() {
   return ThemeData(
     primarySwatch: generateMaterialColor(Color.fromRGBO(244, 67, 54, 1)),
+    highlightColor: Color.fromRGBO(244, 67, 54, 1),
     fontFamily: 'Muli',
   );
 }

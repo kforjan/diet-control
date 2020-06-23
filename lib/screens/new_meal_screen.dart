@@ -45,7 +45,7 @@ class _NewMealScreenState extends State<NewMealScreen> {
                   children: <Widget>[
                     TextFormField(
                       decoration: InputDecoration(hintText: 'Name'),
-                      maxLength: 25,
+                      maxLength: 35,
                       controller: _nameInputController,
                       validator: (value) {
                         if (value == '') {
@@ -112,6 +112,7 @@ class _NewMealScreenState extends State<NewMealScreen> {
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           Meal newMeal = Meal(
+                            id: DateTime.now().toIso8601String(), //pseudo id
                             name: _nameInputController.text,
                             proteinWeight:
                                 double.tryParse(_proteinInputController.text),

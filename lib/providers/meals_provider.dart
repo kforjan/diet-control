@@ -26,6 +26,7 @@ class MealsProvider extends ChangeNotifier {
       data.forEach((element) {
         _meals.add(
           Meal(
+            id: element[DBHelper.columnId],
             name: element[DBHelper.columnName],
             proteinWeight: element[DBHelper.columnProtein],
             carbWeight: element[DBHelper.columnCarb],

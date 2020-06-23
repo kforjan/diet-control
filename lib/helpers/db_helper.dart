@@ -9,7 +9,7 @@ class DBHelper {
 
   static final table = 'user_meals';
 
-  static final _columnId = 'id';
+  static final columnId = 'id';
   static final columnName = 'name';
   static final columnProtein = 'protein';
   static final columnCarb = 'carb';
@@ -29,7 +29,7 @@ class DBHelper {
 
   static Future<void> insert(String table, Meal meal) async {
     Map<String, dynamic> data = {
-      _columnId: DateTime.now().toString(),
+      columnId: meal.id,
       columnName: meal.name,
       columnProtein: meal.proteinWeight,
       columnCarb: meal.carbWeight,
