@@ -6,11 +6,15 @@ class UserDataProvider {
     final _userWeight = double.parse(prefs.getString('weight'));
     final _userHeight = double.parse(prefs.getString('height'));
     final _userAge = int.parse(prefs.getString('age'));
-    final _userGenderConstant = double.parse(prefs.getString('genderConstant'));
-    return (10 * _userWeight +
-        6.25 * _userHeight -
-        5 * _userAge +
-        _userGenderConstant);
+    final _userGenderConstant = double.parse(prefs.getString('gender'));
+    final _userActivityConstant = double.parse(prefs.getString('activity'));
+    final _userGoalConstant = double.parse(prefs.getString('goal'));
+    return ((10 * _userWeight +
+                6.25 * _userHeight -
+                5 * _userAge +
+                _userGenderConstant) *
+            _userActivityConstant) *
+        _userGoalConstant;
   }
 
   static Future<double> getProteinGoal() async {

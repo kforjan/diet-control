@@ -29,15 +29,23 @@ class CurrentIntakeProvider extends ChangeNotifier {
     await prefs.setDouble('protein', _protein);
     await prefs.setDouble('carb', _carb);
     await prefs.setDouble('fat', _fat);
+    await prefs.setString('date', DateTime.now().toIso8601String());
     notifyListeners();
   }
 
   Future fetchAndSetIntakes() async {
-    if (_fat == null || _protein == null || _carb == null) {
-      _protein = await getProteinIntake();
-      _carb = await getCarbIntake();
-      _fat = await getFatIntake();
-      notifyListeners();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    DateTime lastDate =
+        DateTime.parse(prefs.getString('date')) ?? DateTime.now();
+    if (lastDate.isSameDate(DateTime.now())) {
+      if (_fat == null || _protein == null || _carb == null) {
+        _protein = await getProteinIntake();
+        _carb = await getCarbIntake();
+        _fat = await getFatIntake();
+        notifyListeners();
+      }
+    } else {
+      deleteIntakes();
     }
   }
 
@@ -60,13 +68,21 @@ class CurrentIntakeProvider extends ChangeNotifier {
   }
 
   Future deleteIntakes() async {
-    _protein = null;
-    _carb = null;
-    _fat = null;
+    _protein = 0;
+    _carb = 0;
+    _fat = 0;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('protein', 0);
     await prefs.setDouble('carb', 0);
     await prefs.setDouble('fat', 0);
     notifyListeners();
+  }
+}
+
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return this.year == other.year &&
+        this.month == other.month &&
+        this.day == other.day;
   }
 }

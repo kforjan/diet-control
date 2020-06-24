@@ -9,8 +9,12 @@ class RegistrationForm extends StatefulWidget {
 }
 
 class _RegistrationFormState extends State<RegistrationForm> {
-  int _radioValue = 0;
-  int _genderCalorieConstant = 5;
+  int _genderRadioValue = 0;
+  int _activityRadioValue = 1;
+  int _goalRadioValue = 1;
+  int _genderConstant = 5;
+  double _activityConstant = 1.5;
+  double _goalConstant = 1;
 
   final _heightController = TextEditingController();
   final _weightController = TextEditingController();
@@ -26,18 +30,50 @@ class _RegistrationFormState extends State<RegistrationForm> {
     await prefs.setString('height', _heightController.text);
     await prefs.setString('weight', _weightController.text);
     await prefs.setString('age', _ageController.text);
-    await prefs.setString('genderConstant', _genderCalorieConstant.toString());
+    await prefs.setString('gender', _genderConstant.toString());
+    await prefs.setString('activity', _activityConstant.toString());
+    await prefs.setString('goal', _goalConstant.toString());
   }
 
-  void _handleRadioValueChange(int value) {
+  void _handleGenderRadioValueChange(int value) {
     setState(() {
-      _radioValue = value;
+      _genderRadioValue = value;
     });
     if (value == 0) {
-      _genderCalorieConstant = 5;
+      _genderConstant = 5;
     }
     if (value == 1) {
-      _genderCalorieConstant = -161;
+      _genderConstant = -161;
+    }
+  }
+
+  void _handleActivityRadioValueChange(int value) {
+    setState(() {
+      _activityRadioValue = value;
+    });
+    if (value == 0) {
+      _activityConstant = 1.2;
+    }
+    if (value == 1) {
+      _activityConstant = 1.5;
+    }
+    if (value == 2) {
+      _activityConstant = 1.75;
+    }
+  }
+
+  void _handleGoalRadioValueChange(int value) {
+    setState(() {
+      _goalRadioValue = value;
+    });
+    if (value == 0) {
+      _goalConstant = 0.9;
+    }
+    if (value == 1) {
+      _goalConstant = 1;
+    }
+    if (value == 2) {
+      _goalConstant = 1.1;
     }
   }
 
@@ -109,15 +145,67 @@ class _RegistrationFormState extends State<RegistrationForm> {
               children: <Widget>[
                 Radio(
                     value: 0,
-                    groupValue: _radioValue,
-                    onChanged: _handleRadioValueChange),
+                    groupValue: _genderRadioValue,
+                    onChanged: _handleGenderRadioValueChange),
                 Text('Male'),
                 Radio(
                   value: 1,
-                  groupValue: _radioValue,
-                  onChanged: _handleRadioValueChange,
+                  groupValue: _genderRadioValue,
+                  onChanged: _handleGenderRadioValueChange,
                 ),
                 Text('Female'),
+              ],
+            ),
+            Divider(),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text('Activity'),
+            ),
+            Row(
+              children: <Widget>[
+                Radio(
+                    value: 0,
+                    groupValue: _activityRadioValue,
+                    onChanged: _handleActivityRadioValueChange),
+                Text('Light'),
+                Radio(
+                  value: 1,
+                  groupValue: _activityRadioValue,
+                  onChanged: _handleActivityRadioValueChange,
+                ),
+                Text('Moderate'),
+                Radio(
+                  value: 2,
+                  groupValue: _activityRadioValue,
+                  onChanged: _handleActivityRadioValueChange,
+                ),
+                Text('Heavy'),
+              ],
+            ),
+            Divider(),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text('Lose / gain / maintain your weight?'),
+            ),
+            Row(
+              children: <Widget>[
+                Radio(
+                    value: 0,
+                    groupValue: _goalRadioValue,
+                    onChanged: _handleGoalRadioValueChange),
+                Text('Lose'),
+                Radio(
+                  value: 1,
+                  groupValue: _goalRadioValue,
+                  onChanged: _handleGoalRadioValueChange,
+                ),
+                Text('Maintain'),
+                Radio(
+                  value: 2,
+                  groupValue: _goalRadioValue,
+                  onChanged: _handleGoalRadioValueChange,
+                ),
+                Text('Gain'),
               ],
             ),
             SizedBox(height: mediaQuery.size.height * 0.05),

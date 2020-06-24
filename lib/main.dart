@@ -1,8 +1,8 @@
-import 'package:diet_app/providers/meals_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './theme/style.dart';
+import './providers/meals_provider.dart';
 import './providers/current_intake_provider.dart';
 import './screens/overview_screen.dart';
 import './screens/new_meal_screen.dart';
