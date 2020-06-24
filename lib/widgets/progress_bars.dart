@@ -11,9 +11,9 @@ class ProgressBars extends StatefulWidget {
 }
 
 class _ProgressBarsState extends State<ProgressBars> {
-  double _proteinGoal = 0;
-  double _carbGoal = 0;
-  double _fatGoal = 0;
+  double _proteinGoal = double.infinity;
+  double _carbGoal = double.infinity;
+  double _fatGoal = double.infinity;
 
   @override
   void initState() {

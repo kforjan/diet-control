@@ -4,9 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/meal.dart';
 
 class CurrentIntakeProvider extends ChangeNotifier {
-  double _protein;
-  double _carb;
-  double _fat;
+  double _protein = 0;
+  double _carb = 0;
+  double _fat = 0;
 
   double get protein {
     return _protein;
@@ -39,33 +39,15 @@ class CurrentIntakeProvider extends ChangeNotifier {
         DateTime.parse(prefs.getString('date')) ?? DateTime.now();
     if (lastDate.isSameDate(DateTime.now())) {
       if (_fat == null || _protein == null || _carb == null) {
-        _protein = await getProteinIntake();
-        _carb = await getCarbIntake();
-        _fat = await getFatIntake();
+        _protein = prefs.getDouble('protein') ?? 0;
+        _carb = prefs.getDouble('carb') ?? 0;
+        _fat = prefs.getDouble('fat') ?? 0;
         notifyListeners();
       }
     } else {
       await prefs.setString('date', DateTime.now().toIso8601String());
       deleteIntakes();
     }
-  }
-
-  Future<double> getProteinIntake() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    double _protein = (prefs.getDouble('protein') ?? 0);
-    return _protein;
-  }
-
-  Future<double> getCarbIntake() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    double _carb = (prefs.getDouble('carb') ?? 0);
-    return _carb;
-  }
-
-  Future<double> getFatIntake() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    double _fat = (prefs.getDouble('fat') ?? 0);
-    return _fat;
   }
 
   Future deleteIntakes() async {

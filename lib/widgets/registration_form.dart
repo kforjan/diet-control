@@ -216,9 +216,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
               ),
               onPressed: () {
                 if (_formKey.currentState.validate()) {
-                  _registerUser();
-                  Navigator.of(context)
-                      .pushReplacementNamed(OverviewScreen.routeName);
+                  _registerUser().then((value) {
+                    Navigator.of(context)
+                        .pushReplacementNamed(OverviewScreen.routeName);
+                  });
                 }
               },
               color: Theme.of(context).primaryColor,

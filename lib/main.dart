@@ -6,7 +6,6 @@ import './providers/meals_provider.dart';
 import './providers/current_intake_provider.dart';
 import './screens/overview_screen.dart';
 import './screens/new_meal_screen.dart';
-import './screens/edit_inputs_screen.dart';
 import './screens/registration_screen.dart';
 import './screens/splash_screen.dart';
 
@@ -31,7 +30,6 @@ class GoodDietApp extends StatelessWidget {
           '/': (context) => SplashScreen(),
           OverviewScreen.routeName: (context) => OverviewScreen(),
           NewMealScreen.routeName: (context) => NewMealScreen(),
-          EditInputsScreen.routeName: (context) => EditInputsScreen(),
           RegistrationScreen.routeName: (context) => RegistrationScreen(),
         },
       ),
