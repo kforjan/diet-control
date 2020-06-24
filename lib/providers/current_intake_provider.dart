@@ -45,6 +45,7 @@ class CurrentIntakeProvider extends ChangeNotifier {
         notifyListeners();
       }
     } else {
+      await prefs.setString('date', DateTime.now().toIso8601String());
       deleteIntakes();
     }
   }
@@ -72,9 +73,10 @@ class CurrentIntakeProvider extends ChangeNotifier {
     _carb = 0;
     _fat = 0;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setDouble('protein', 0);
-    await prefs.setDouble('carb', 0);
-    await prefs.setDouble('fat', 0);
+    await prefs.remove('protein');
+    await prefs.remove('carb');
+    await prefs.remove('fat');
+    await prefs.remove('date');
     notifyListeners();
   }
 }
