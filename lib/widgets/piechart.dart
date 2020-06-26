@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart' as chart;
+import 'package:flutter/material.dart';
 
 class PieChart extends StatelessWidget {
   final _protein;
