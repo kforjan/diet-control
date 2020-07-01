@@ -49,7 +49,13 @@ class DBHelper {
     return db.query(table);
   }
 
-  static Future deleteData(String table) async {
+  static Future deleteData() async {
+    final dbPath = await sql.getDatabasesPath();
+    sql.Database db = await sql.openDatabase(path.join(dbPath, _databaseName));
+    db.execute('');
+  }
+
+  static Future deleteAllData() async {
     final dbPath = await sql.getDatabasesPath();
     sql.deleteDatabase(
       path.join(dbPath, _databaseName),

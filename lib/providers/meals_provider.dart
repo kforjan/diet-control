@@ -38,10 +38,16 @@ class MealsProvider extends ChangeNotifier {
     }
   }
 
-  void deleteMeal() {}
+  Future deleteMeal(Meal meal) async {
+    await DBHelper.deleteData();
+    _meals.removeWhere((element) => meal.id == element.id);
+
+    notifyListeners();
+  }
+
 
   Future deleteAllMeals() async{
-    await DBHelper.deleteData(DBHelper.table);
+    await DBHelper.deleteAllData();
     _meals = null;
     notifyListeners();
   }
