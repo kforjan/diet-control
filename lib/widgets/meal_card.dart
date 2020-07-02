@@ -23,8 +23,36 @@ class _MealCardState extends State<MealCard> {
     return Center(
       child: Dismissible(
         key: Key(widget.meal.id),
+        confirmDismiss: (_) async {
+          return await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text(
+                'Are you sure you want to delete this meal?',
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('No'),
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+                FlatButton(
+                  child: Text(
+                    'Yes',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                ),
+              ],
+            ),
+          );
+        },
         onDismissed: (_) {
-          Provider.of<MealsProvider>(context).deleteMeal(widget.meal);
+          Provider.of<MealsProvider>(context, listen: false)
+              .deleteMeal(widget.meal);
         },
         direction: DismissDirection.endToStart,
         background: Container(

@@ -39,7 +39,7 @@ class MealsProvider extends ChangeNotifier {
   }
 
   Future deleteMeal(Meal meal) async {
-    await DBHelper.deleteData();
+    await DBHelper.deleteData(meal.id);
     _meals.removeWhere((element) => meal.id == element.id);
 
     notifyListeners();

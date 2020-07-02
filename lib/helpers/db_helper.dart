@@ -1,5 +1,5 @@
-import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
+import 'package:sqflite/sqflite.dart' as sql;
 
 import '../models/meal.dart';
 
@@ -49,10 +49,10 @@ class DBHelper {
     return db.query(table);
   }
 
-  static Future deleteData() async {
+  static Future deleteData(String id) async {
     final dbPath = await sql.getDatabasesPath();
     sql.Database db = await sql.openDatabase(path.join(dbPath, _databaseName));
-    db.execute('');
+    db.execute("DELETE FROM $table WHERE $columnId = '$id'");
   }
 
   static Future deleteAllData() async {
