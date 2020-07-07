@@ -1,4 +1,3 @@
-import 'package:diet_app/helpers/slide_right_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';

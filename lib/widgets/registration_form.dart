@@ -33,6 +33,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
     await prefs.setString('gender', _genderConstant.toString());
     await prefs.setString('activity', _activityConstant.toString());
     await prefs.setString('goal', _goalConstant.toString());
+    await prefs.setString('date', DateTime.now().toIso8601String());
   }
 
   void _handleGenderRadioValueChange(int value) {
@@ -88,6 +89,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
           children: <Widget>[
             TextFormField(
               controller: _heightController,
+              keyboardType: TextInputType.number,
               onFieldSubmitted: (_) {
                 _wehightFocusNode.requestFocus();
               },
@@ -108,6 +110,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
             TextFormField(
               controller: _weightController,
               focusNode: _wehightFocusNode,
+              keyboardType: TextInputType.number,
               onFieldSubmitted: (_) {
                 _ageFocusNode.requestFocus();
               },
@@ -128,6 +131,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
             TextFormField(
               controller: _ageController,
               focusNode: _ageFocusNode,
+              keyboardType: TextInputType.number,
               validator: (value) {
                 if (double.tryParse(value) == null ||
                     double.parse(value) < 0 ||

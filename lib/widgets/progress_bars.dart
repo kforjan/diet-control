@@ -48,8 +48,8 @@ class _ProgressBarsState extends State<ProgressBars> {
               title: Text('Proteins'),
             ),
             ColoredBar(
-              _proteinWeight,
-              _proteinGoal,
+              _proteinWeight ?? 0,
+              _proteinGoal ?? 0,
               Theme.of(context).primaryColor,
             ),
             ListTile(
@@ -60,7 +60,8 @@ class _ProgressBarsState extends State<ProgressBars> {
               ),
               title: Text('Carbohydrates'),
             ),
-            ColoredBar(_carbWeight, _carbGoal, Color.fromRGBO(232, 191, 70, 1)),
+            ColoredBar(_carbWeight ?? 0, _carbGoal ?? 0,
+                Color.fromRGBO(232, 191, 70, 1)),
             ListTile(
               leading: Container(
                 width: 20,
@@ -69,7 +70,8 @@ class _ProgressBarsState extends State<ProgressBars> {
               ),
               title: Text('Fats'),
             ),
-            ColoredBar(_fatWeight, _fatGoal, Color.fromRGBO(232, 230, 161, 1)),
+            ColoredBar(_fatWeight ?? 0, _fatGoal ?? 0,
+                Color.fromRGBO(232, 230, 161, 1)),
           ],
         ),
       ),

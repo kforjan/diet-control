@@ -4,9 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/meal.dart';
 
 class CurrentIntakeProvider extends ChangeNotifier {
-  double _protein = 0;
-  double _carb = 0;
-  double _fat = 0;
+  double _protein;
+  double _carb;
+  double _fat;
 
   double get protein {
     return _protein;
@@ -25,12 +25,12 @@ class CurrentIntakeProvider extends ChangeNotifier {
     _protein += meal.proteinWeight;
     _carb += meal.carbWeight;
     _fat += meal.fatWeight;
+    notifyListeners();
 
     await prefs.setDouble('protein', _protein);
     await prefs.setDouble('carb', _carb);
     await prefs.setDouble('fat', _fat);
     await prefs.setString('date', DateTime.now().toIso8601String());
-    notifyListeners();
   }
 
   Future fetchAndSetIntakes() async {

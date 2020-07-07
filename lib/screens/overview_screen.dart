@@ -31,9 +31,9 @@ class OverviewScreen extends StatelessWidget {
                       children: <Widget>[
                         ProgressBars(),
                         PieChart(
-                          protein: intake.protein,
-                          carb: intake.carb,
-                          fat: intake.fat,
+                          protein: intake.protein ?? 0,
+                          carb: intake.carb ?? 0,
+                          fat: intake.fat ?? 0,
                         ),
                         SizedBox(height: mediaQuery.size.height * 0.08),
                         RaisedButton(
