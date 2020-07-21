@@ -47,7 +47,7 @@ class _NewMealScreenState extends State<NewMealScreen> {
                       maxLength: 35,
                       controller: _nameInputController,
                       validator: (value) {
-                        if (value == '') {
+                        if (value.trim() == '') {
                           return 'Please enter a name';
                         }
                         return null;
@@ -63,9 +63,9 @@ class _NewMealScreenState extends State<NewMealScreen> {
                       maxLength: 5,
                       controller: _proteinInputController,
                       validator: (value) {
-                        if (double.tryParse(value) == null ||
+                        if (double.tryParse(value.trim()) == null ||
                             value == null ||
-                            double.tryParse(value) < 0) {
+                            double.tryParse(value.trim()) < 0) {
                           return 'Please enter a valid number';
                         }
                         return null;
@@ -81,9 +81,9 @@ class _NewMealScreenState extends State<NewMealScreen> {
                       maxLength: 5,
                       controller: _carbInputController,
                       validator: (value) {
-                        if (double.tryParse(value) == null ||
+                        if (double.tryParse(value.trim()) == null ||
                             value == null ||
-                            double.tryParse(value) < 0) {
+                            double.tryParse(value.trim()) < 0) {
                           return 'Please enter a valid number';
                         }
                         return null;
@@ -98,9 +98,9 @@ class _NewMealScreenState extends State<NewMealScreen> {
                       maxLength: 5,
                       controller: _fatInputController,
                       validator: (value) {
-                        if (double.tryParse(value) == null ||
+                        if (double.tryParse(value.trim()) == null ||
                             value == null ||
-                            double.tryParse(value) < 0) {
+                            double.tryParse(value.trim()) < 0) {
                           return 'Please enter a valid number';
                         }
                         return null;
@@ -113,14 +113,15 @@ class _NewMealScreenState extends State<NewMealScreen> {
                           Meal newMeal = Meal(
                             id: DateTime.now().toIso8601String(), //pseudo id
                             name: _nameInputController.text,
-                            proteinWeight:
-                                double.tryParse(_proteinInputController.text),
-                            carbWeight:
-                                double.tryParse(_carbInputController.text),
-                            fatWeight:
-                                double.tryParse(_fatInputController.text),
+                            proteinWeight: double.tryParse(
+                                _proteinInputController.text.trim()),
+                            carbWeight: double.tryParse(
+                                _carbInputController.text.trim()),
+                            fatWeight: double.tryParse(
+                                _fatInputController.text.trim()),
                           );
-                          Provider.of<MealsProvider>(context, listen: false).addMeal(newMeal);
+                          Provider.of<MealsProvider>(context, listen: false)
+                              .addMeal(newMeal);
                           Navigator.of(context).pop();
                         }
                       },

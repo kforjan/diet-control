@@ -27,9 +27,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
   Future _registerUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('seen', true);
-    await prefs.setString('height', _heightController.text);
-    await prefs.setString('weight', _weightController.text);
-    await prefs.setString('age', _ageController.text);
+    await prefs.setString('height', _heightController.text.trim());
+    await prefs.setString('weight', _weightController.text.trim());
+    await prefs.setString('age', _ageController.text.trim());
     await prefs.setString('gender', _genderConstant.toString());
     await prefs.setString('activity', _activityConstant.toString());
     await prefs.setString('goal', _goalConstant.toString());
@@ -94,9 +94,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 _wehightFocusNode.requestFocus();
               },
               validator: (value) {
-                if (double.tryParse(value) == null ||
-                    double.parse(value) < 100 ||
-                    double.parse(value) > 260) {
+                if (double.tryParse(value.trim()) == null ||
+                    double.parse(value.trim()) < 100 ||
+                    double.parse(value.trim()) > 260) {
                   return 'Please enter a valid height.';
                 }
                 return null;
@@ -115,9 +115,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 _ageFocusNode.requestFocus();
               },
               validator: (value) {
-                if (double.tryParse(value) == null ||
-                    double.parse(value) < 30 ||
-                    double.parse(value) > 300) {
+                if (double.tryParse(value.trim()) == null ||
+                    double.parse(value.trim()) < 30 ||
+                    double.parse(value.trim()) > 300) {
                   return 'Please enter a valid weight.';
                 }
                 return null;
@@ -133,9 +133,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
               focusNode: _ageFocusNode,
               keyboardType: TextInputType.number,
               validator: (value) {
-                if (double.tryParse(value) == null ||
-                    double.parse(value) < 0 ||
-                    double.parse(value) > 110) {
+                if (double.tryParse(value.trim()) == null ||
+                    double.parse(value.trim()) < 0 ||
+                    double.parse(value.trim()) > 110) {
                   return 'Please enter your real age.';
                 }
                 return null;
