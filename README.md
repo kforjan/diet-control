@@ -18,11 +18,11 @@ The main focus of this project was on using local storage (shared preferences an
   ```
 
 ## Used packages
-  * [sqflite](https://pub.dev/packages/sqflite)
-  * [shared_preferences](https://pub.dev/packages/shared_preferences)
-  * [path](https://pub.dev/packages/path)
-  * [provider](https://pub.dev/packages/provider)
-  * [fl_chart](https://pub.dev/packages/fl_chart)
+  * [provider](https://pub.dev/packages/provider) &nbsp; - &nbsp; state management
+  * [sqflite](https://pub.dev/packages/sqflite) &nbsp; - &nbsp; SQLite for Flutter, local data cache
+  * [shared_preferences](https://pub.dev/packages/shared_preferences) &nbsp; - &nbsp; local data cache
+  * [path](https://pub.dev/packages/path) &nbsp; - &nbsp; cross-platform path manipulation
+  * [fl_chart](https://pub.dev/packages/fl_chart) &nbsp; - &nbsp; chart widgets
 
 ## Features
  * Input and storage of custom user parameters locally (weight, height, age...)
